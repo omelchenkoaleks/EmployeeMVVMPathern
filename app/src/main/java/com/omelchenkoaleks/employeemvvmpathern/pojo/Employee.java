@@ -1,11 +1,15 @@
 package com.omelchenkoaleks.employeemvvmpathern.pojo;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
+@Entity(tableName = "employees")
 public class Employee {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @SerializedName("f_name")
     @Expose
     private String fName;
@@ -18,9 +22,17 @@ public class Employee {
     @SerializedName("avatr_url")
     @Expose
     private String avatrUrl;
-    @SerializedName("specialty")
-    @Expose
-    private List<Specialty> specialty = null;
+//    @SerializedName("specialty")
+//    @Expose
+//    private List<Specialty> specialty = null;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFName() {
         return fName;
@@ -54,11 +66,4 @@ public class Employee {
         this.avatrUrl = avatrUrl;
     }
 
-    public List<Specialty> getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(List<Specialty> specialty) {
-        this.specialty = specialty;
-    }
 }
