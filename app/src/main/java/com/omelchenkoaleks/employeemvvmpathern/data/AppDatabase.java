@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.omelchenkoaleks.employeemvvmpathern.pojo.Employee;
 
-@Database(entities = {Employee.class}, version = 1, exportSchema = false)
+@Database(entities = {Employee.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "employees.db";
     private static AppDatabase sDatabase;
@@ -18,7 +18,12 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInstance(Context context) {
         synchronized (LOCK) {
             if (sDatabase == null) {
-                sDatabase = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).build();
+                /*
+                    .fallbackToDestructiveMigration() = говорит следующее,
+                    если версия базы изменилась, то удилить все старые данные и создать новую базу
+                  */
+                sDatabase = Room.databaseBuilder(context, AppDatabase.class, DB_NAME)
+                        .fallbackToDestructiveMigration().build();
             }
             return sDatabase;
         }

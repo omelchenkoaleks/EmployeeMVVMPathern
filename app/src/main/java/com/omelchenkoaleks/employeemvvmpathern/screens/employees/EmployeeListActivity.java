@@ -1,6 +1,7 @@
 package com.omelchenkoaleks.employeemvvmpathern.screens.employees;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omelchenkoaleks.employeemvvmpathern.R;
 import com.omelchenkoaleks.employeemvvmpathern.adapters.EmployeeAdapter;
 import com.omelchenkoaleks.employeemvvmpathern.pojo.Employee;
+import com.omelchenkoaleks.employeemvvmpathern.pojo.Specialty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,16 @@ public class EmployeeListActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Employee> employees) {
                 mEmployeeAdapter.setEmployees(employees);
+
+                // Test
+                if (employees != null) {
+                    for (Employee employee : employees) {
+                        List<Specialty> specialties = employee.getSpecialty();
+                        for (Specialty specialty : specialties) {
+                            Log.i("Specialty", specialty.getName());
+                        }
+                    }
+                }
             }
         });
         mViewModel.getErrors().observe(this, new Observer<Throwable>() {
